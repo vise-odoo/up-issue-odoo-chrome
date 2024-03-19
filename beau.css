@@ -23,10 +23,10 @@ body {
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .card a {
-    color: #007BFF;
+    color: #007bff;
     text-decoration: none;
 }
 .error {

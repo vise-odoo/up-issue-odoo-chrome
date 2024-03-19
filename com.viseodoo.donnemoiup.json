@@ -3,8 +3,5 @@
     "description": "Application de messagerie native pour executer le protocole XML-RPC",
     "path": "/home/odoo/Downloads/extension/native.py",
     "type": "stdio",
-    "allowed_origins": [
-      "chrome-extension://nfcngfljliahliefahamnjgohiepjpmd/"
-    ]
-  }
-  
+    "allowed_origins": ["chrome-extension://nfcngfljliahliefahamnjgohiepjpmd/"]
+}
