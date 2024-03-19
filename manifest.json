@@ -1,0 +1,15 @@
+{
+    "name": "Donne-moi une Upgrade Issue !",
+    "version": "1.0.0",
+    "description": "Envoie une requête à Odoo.com et renvoie le problème de mise à niveau le plus ancien.",
+    "manifest_version": 3,
+    "author": "Vincent Sevestre",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Upgrade Issue Report"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["nativeMessaging"]
+}
