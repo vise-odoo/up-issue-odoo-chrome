@@ -4,6 +4,7 @@
     "description": "Envoie une requête à Odoo.com et renvoie le problème de mise à niveau le plus ancien.",
     "manifest_version": 3,
     "author": "Vincent Sevestre",
+    "icons":{"128": "icon.png"},
     "action":{
         "default_popup": "index.html",
         "default_title": "Upgrade Issue Report"
