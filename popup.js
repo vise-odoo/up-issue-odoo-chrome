@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("description").innerHTML = response.description;
                 document.getElementById("data").classList.remove("hidden");
                 document.getElementById("bouton-ignorer").classList.remove("hidden");
+                document.getElementById("chargement").classList.add("hidden");
             }
         });
     }

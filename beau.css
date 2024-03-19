@@ -42,3 +42,11 @@ h2 {
     color: #875a7b;
     text-shadow: 1px 1px 1px purple;
 }
+
+#chargement {
+    background-color: #fff;
+    border-radius: 1px;
+    padding: 2px;
+    margin-left: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
