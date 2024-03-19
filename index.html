@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Donne-moi une Upgrade Issue !</title>
     <meta charset="utf-8">
@@ -7,22 +8,31 @@
     <link href="beau.css" type=text/css rel="stylesheet">
     <script src="popup.js"></script>
 </head>
+
 <body>
     <div class="container mt-3" style="width: 450px;">
         <h2 class="text-center">Donne-moi une Upgrade Issue !</h2>
         <button id="bouton-ignorer" class="btn btn-primary hidden">Ignorer la tâche</button>
         <button id="bouton-annuler-ignorer" class="btn btn-secondary hidden">Afficher les tâches ignorées</button>
         <div id="data" class="hidden card">
-            <p>Il y a <t id="len_tasks">??</t> tâches disponibles <t id="div_len_ignorées" class="hidden">(dont <t id="len_ignorées"></t> tâches ignorées)</t></p>
-            <p>Tâche <a id="url" href=''><strong>#<t id="id">##</t></strong></a> : <t id="name" class="title">???</t></p>
+            <p>Il y a <t id="len_tasks">??</t> tâches disponibles <t id="div_len_ignorées" class="hidden">(dont <t
+                        id="len_ignorées"></t> tâches ignorées)</t>
+            </p>
+            <p>Tâche <a id="url" href=''><strong>#<t id="id">##</t></strong></a> : <t id="name" class="title">???</t>
+            </p>
             <span><strong>Étiquettes :</strong>
-            <p id="task_tags"/></span>
-            <span><p><strong>Description :</strong>
-                <t id="description"></p></span>
+                <p id="task_tags" />
+            </span>
+            <span>
+                <p><strong>Description :</strong>
+                    <t id="description">
+                </p>
+            </span>
         </div>
         <div id="erreur_div" class="hidden">
             <p id="erreur_log" class="error"></p>
         </div>
     </div>
 </body>
+
 </html>
