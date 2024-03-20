@@ -16,14 +16,23 @@ body {
     margin: auto;
 }
 
-.title, h2 {
+.title {
+    display: inline-block;
     color: #875a7b;
     font-size: 20px;
-    margin-bottom: 10px;
 }
 
 h2 {
-    text-shadow: 1px 1px 1px purple;
+    color: #875a7b;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(107, 29, 107, 0.5);
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #875a7b;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .description {
@@ -35,25 +44,23 @@ h2 {
 }
 
 .task-tags span {
-    color: black;
+    color: #000;
     background-color: antiquewhite;
     padding: 5px 10px;
+    margin: 2px;
     border-radius: 20px;
     margin-right: 5px;
     font-size: 14px;
     font-weight:600;
     line-height: 1.2;
     margin-bottom: 10px;
+    display: inline-block;
 }
 
 .card {
     position: relative;
-    padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     border: 1px solid #e5e5e5;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card::before {
@@ -81,8 +88,13 @@ h2 {
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;
-    margin-bottom: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#loading {
+    border-radius: 30px;
+    padding: 2px;
+    margin-left: 5px;
 }
 
 .error {
@@ -92,12 +104,6 @@ h2 {
 
 button {
     margin-bottom: 10px;
-}
-
-#chargement {
-    border-radius: 1px;
-    padding: 2px;
-    margin-left: 5px;
 }
 
 #tag-filters .form-check {
