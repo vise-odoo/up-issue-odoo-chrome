@@ -34,9 +34,14 @@ h2 {
     padding: 10px;
 }
 
-.task-tags {
-    color: #007bff;
+.task-tags span {
+    color: black;
+    background-color: antiquewhite;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 5px;
     font-size: 14px;
+    font-weight:600;
     line-height: 1.2;
     margin-bottom: 10px;
 }

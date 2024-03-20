@@ -1,5 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
     let ignore_ids = JSON.parse(localStorage.getItem('ignore_ids')) || [];
+    var tagColorMap = {
+        'UP-BlockingReq': '#ff9ecc',
+        'UP-Traceback': '#b7edbe',
+        'UP-Other': '#fde388',
+        'UP-Studio/Views': '#bbd7f8',
+        'UP-Website': '#e6dbfc',
+        'rolling release': '#f7c698'
+    };
     window.onload = function () {
         let selectedTags = JSON.parse(localStorage.getItem('selectedTags')) || [];
         let ignoreRollingRelease = JSON.parse(localStorage.getItem('ignoreRollingRelease')) || true;
@@ -44,7 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("name").innerHTML = response.name;
                 var url = "https://www.odoo.com/web#id=" + response.id + "&menu_id=4720&cids=1&action=333&active_id=70&model=project.task&view_type=form";
                 document.getElementById("url").href = url;
-                document.getElementById("task_tags").innerHTML = response.tag_ids;
+                var tagElements = response.tag_ids.map(function(tag) {
+                    var color = tagColorMap[tag];
+                    return '<span style="background-color: ' + color + ';">' + tag + '</span>';
+                });
+                document.getElementById('task_tags').innerHTML = tagElements.join('  ');
                 document.getElementById("description").innerHTML = response.description;
                 document.getElementById("data").classList.remove("hidden");
                 document.getElementById("ignore-task").classList.remove("hidden");
