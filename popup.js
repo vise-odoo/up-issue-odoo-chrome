@@ -1,48 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var ignore_ids = JSON.parse(localStorage.getItem('ignore_ids')) || [];
+    let ignore_ids = JSON.parse(localStorage.getItem('ignore_ids')) || [];
 
     window.onload = function () {
-        var selectedTags = JSON.parse(localStorage.getItem('selectedTags')) || [];
-        var ignoreRollingRelease;
-        if (localStorage.getItem('ignoreRollingRelease') === null) {
-            ignoreRollingRelease = true;
-        } else {
-            ignoreRollingRelease = JSON.parse(localStorage.getItem('ignoreRollingRelease'));
-        }
-        if (ignoreRollingRelease){
+        let selectedTags = JSON.parse(localStorage.getItem('selectedTags')) || [];
+        let ignoreRollingRelease = JSON.parse(localStorage.getItem('ignoreRollingRelease')) || true;
+
+        if (ignoreRollingRelease) {
             document.getElementById('rolling release').checked = true;
-        }        
-        for (var i = 0; i < selectedTags.length; i++) {
-            document.getElementById(selectedTags[i]).checked = true;
         }
-        if (selectedTags.length > 0){
+
+        selectedTags.forEach(tag => {
+            document.getElementById(tag).checked = true;
+        });
+
+        if (selectedTags.length > 0) {
             document.getElementById('filter-tags').checked = true;
             document.getElementById("tag-filters").classList.toggle("hidden");
         }
+
         loadData();
-    };
-
-    function getSelectedTags() {
-        var checkboxes = document.querySelectorAll("#tag-filters input[name='tag']:checked");
-        var selectedTags = [];
-        for (var i = 0; i < checkboxes.length; i++) {
-            selectedTags.push(checkboxes[i].id);
-        }
-        return selectedTags;
     }
 
-    function getIgnoreRollingRelease(){
-        var checkbox = document.querySelectorAll("input[name='rolling-release-tag']:checked");
-        if (checkbox.length > 0){
-            return true
-        }
-        return false;
+    const getSelectedTags = () => {
+        let checkboxes = document.querySelectorAll("#tag-filters input[name='tag']:checked");
+        return Array.from(checkboxes, checkbox => checkbox.id);
     }
 
-    function loadData() {
-        var selectedTags = getSelectedTags();
+    const getIgnoreRollingRelease = () => {
+        let checkbox = document.querySelectorAll("input[name='rolling-release-tag']:checked");
+        return checkbox.length > 0;
+    }
+
+    const loadData = () => {
+        let selectedTags = getSelectedTags();
         localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
-        var ignoreRollingRelease = getIgnoreRollingRelease();
+
+        let ignoreRollingRelease = getIgnoreRollingRelease();
         localStorage.setItem('ignoreRollingRelease', JSON.stringify(ignoreRollingRelease));
 
         chrome.runtime.sendMessage({ignore_ids: ignore_ids, selected_tags: selectedTags, ignoreRollingRelease: ignoreRollingRelease}, function (response) {
@@ -53,44 +46,38 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("len_tasks").innerHTML = response.len_tasks;
                 document.getElementById("id").innerHTML = response.id;
                 document.getElementById("name").innerHTML = response.name;
-                var url =
-                    "https://www.odoo.com/web#id=" +
-                    response.id +
-                    "&menu_id=4720&cids=1&action=333&active_id=70&model=project.task&view_type=form";
+                var url = "https://www.odoo.com/web#id=" + response.id + "&menu_id=4720&cids=1&action=333&active_id=70&model=project.task&view_type=form";
                 document.getElementById("url").href = url;
                 document.getElementById("task_tags").innerHTML = response.tag_ids;
                 document.getElementById("description").innerHTML = response.description;
                 document.getElementById("data").classList.remove("hidden");
                 document.getElementById("bouton-ignorer").classList.remove("hidden");
                 document.getElementById("chargement").classList.add("hidden");
-                if (ignore_ids.length > 0){
+
+                if (ignore_ids.length > 0) {
                     document.getElementById("bouton-annuler-ignorer").classList.remove("hidden");
                     document.getElementById("div_len_ignorées").classList.remove("hidden");
                     document.getElementById("len_ignorées").innerHTML = ignore_ids.length;
-                } 
+                }
             }
         });
     }
+
     document.querySelector("#filter-tags").addEventListener("change", function () {
         var filterTagsCheckbox = document.getElementById("filter-tags");
         if (!filterTagsCheckbox.checked) {
             var tagCheckboxes = document.querySelectorAll("#tag-filters input[type='checkbox']");
-            for (var i = 0; i < tagCheckboxes.length; i++) {
-                tagCheckboxes[i].checked = false;
-            }
+            tagCheckboxes.forEach(checkbox => checkbox.checked = false);
             loadData();
         }
         document.getElementById("tag-filters").classList.toggle("hidden");
-    });    
+    });
 
     var tagCheckboxes = document.querySelectorAll("#tag-filters input[name='tag']");
-    for (var i = 0; i < tagCheckboxes.length; i++) {
-        tagCheckboxes[i].addEventListener("change", loadData);
-    }
+    tagCheckboxes.forEach(checkbox => checkbox.addEventListener("change", loadData));
+
     var tagCheckboxes = document.querySelectorAll("input[name='rolling-release-tag']");
-    for (var i = 0; i < tagCheckboxes.length; i++) {
-        tagCheckboxes[i].addEventListener("change", loadData);
-    }
+    tagCheckboxes.forEach(checkbox => checkbox.addEventListener("change", loadData));
 
     document.querySelector("#bouton-ignorer").addEventListener("click", function () {
         var current_task_id = parseInt(document.getElementById("id").innerHTML, 10);
