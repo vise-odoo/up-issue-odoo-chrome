@@ -1,6 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
     var ignore_ids = JSON.parse(localStorage.getItem('ignore_ids')) || [];
 
+    window.onload = function () {
+        var selectedTags = JSON.parse(localStorage.getItem('selectedTags')) || [];
+        for (var i = 0; i < selectedTags.length; i++) {
+            document.getElementById(selectedTags[i]).checked = true;
+        }
+        if (selectedTags.length > 0){
+            document.getElementById('filter-tags').checked = true;
+            document.getElementById("tag-filters").classList.toggle("hidden");
+        }
+        loadData();
+    };
+
     function getSelectedTags() {
         var checkboxes = document.querySelectorAll("#tag-filters input[name='tag']:checked");
         var selectedTags = [];
@@ -12,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadData() {
         var selectedTags = getSelectedTags();
+        localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
         chrome.runtime.sendMessage({ignore_ids: ignore_ids, selected_tags: selectedTags}, function (response) {
             if (response.erreur) {
                 document.getElementById("erreur_div").classList.remove("hidden");
@@ -38,9 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
-    loadData();
-
     document.querySelector("#filter-tags").addEventListener("change", function () {
         document.getElementById("tag-filters").classList.toggle("hidden");
     });
