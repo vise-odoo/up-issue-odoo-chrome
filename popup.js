@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var ignore_ids = [];
-
+    var ignore_ids = JSON.parse(localStorage.getItem('ignore_ids')) || [];
     function loadData() {
         chrome.runtime.sendMessage({ignore_ids: ignore_ids}, function (response) {
             if (response.erreur) {
@@ -20,6 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("data").classList.remove("hidden");
                 document.getElementById("bouton-ignorer").classList.remove("hidden");
                 document.getElementById("chargement").classList.add("hidden");
+                if (ignore_ids.length > 0){
+                    document.getElementById("bouton-annuler-ignorer").classList.remove("hidden");
+                    document.getElementById("div_len_ignorées").classList.remove("hidden");
+                    document.getElementById("len_ignorées").innerHTML = ignore_ids.length;
+                } 
             }
         });
     }
@@ -29,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#bouton-ignorer").addEventListener("click", function () {
         var current_task_id = parseInt(document.getElementById("id").innerHTML, 10);
         ignore_ids.push(current_task_id);
+        localStorage.setItem('ignore_ids', JSON.stringify(ignore_ids));
         loadData();
         document.getElementById("bouton-annuler-ignorer").classList.remove("hidden");
         document.getElementById("div_len_ignorées").classList.remove("hidden");
@@ -37,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector("#bouton-annuler-ignorer").addEventListener("click", function () {
         ignore_ids = [];
+        localStorage.removeItem('ignore_ids');
         loadData();
         document.getElementById("bouton-annuler-ignorer").classList.add("hidden");
         document.getElementById("div_len_ignorées").classList.add("hidden");
