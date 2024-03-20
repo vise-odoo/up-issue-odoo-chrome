@@ -18,19 +18,32 @@
             <label for="filter-tags">Filtrer sur les étiquettes</label>
         </div>
         <div id="tag-filters" class="hidden">
-            <input type="checkbox" id="UP-BlockingReq" name="tag">
-            <label for="UP-BlockingReq">Requête Bloquée</label>
-            <input type="checkbox" id="UP-Traceback" name="tag">
-            <label for="UP-Traceback">Pile d'appels</label>
-            <input type="checkbox" id="UP-Other" name="tag">
-            <label for="UP-Other">Autre</label>
-            <input type="checkbox" id="UP-Studio/Views" name="tag">
-            <label for="UP-Studio/Views">Studio</label>
-            <input type="checkbox" id="UP-Website" name="tag">
-            <label for="UP-Website">Site Internet</label>
-            <input type="checkbox" id="rolling release" name="tag">
-            <label for="rolling release">Publication continue</label>
-        </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="UP-BlockingReq" name="tag">
+              <label class="form-check-label" for="UP-BlockingReq">Requête Bloquée</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="UP-Traceback" name="tag">
+              <label class="form-check-label" for="UP-Traceback">Pile d'appels</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="UP-Other" name="tag">
+              <label class="form-check-label" for="UP-Other">Autre</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="UP-Studio/Views" name="tag">
+              <label class="form-check-label" for="UP-Studio/Views">Studio</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="UP-Website" name="tag">
+              <label class="form-check-label" for="UP-Website">Site Internet</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="rolling release" name="tag">
+              <label class="form-check-label" for="rolling release">Publication continue</label>
+            </div>
+          </div>
+          
         <button id="bouton-ignorer" class="btn btn-primary hidden">Ignorer la tâche</button>
         <button id="bouton-annuler-ignorer" class="btn btn-secondary hidden">Réafficher les tâches ignorées</button>
         <div id="data" class="hidden">
