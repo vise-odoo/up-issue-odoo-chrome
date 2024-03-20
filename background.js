@@ -1,5 +1,6 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     chrome.runtime.sendNativeMessage("com.viseodoo.donnemoiup", request, function (response) {
+        console.log(response);
         if (typeof response === "undefined") {
             console.error("No response from the native application");
             console.error(chrome.runtime.lastError.message);

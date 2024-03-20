@@ -1,7 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
     var ignore_ids = JSON.parse(localStorage.getItem('ignore_ids')) || [];
+
+    function getSelectedTags() {
+        var checkboxes = document.querySelectorAll("#tag-filters input[name='tag']:checked");
+        var selectedTags = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            selectedTags.push(checkboxes[i].id);
+        }
+        return selectedTags;
+    }
+
     function loadData() {
-        chrome.runtime.sendMessage({ignore_ids: ignore_ids}, function (response) {
+        var selectedTags = getSelectedTags();
+        chrome.runtime.sendMessage({ignore_ids: ignore_ids, selected_tags: selectedTags}, function (response) {
             if (response.erreur) {
                 document.getElementById("erreur_div").classList.remove("hidden");
                 document.getElementById("erreur_log").innerHTML = response.erreur;
@@ -29,6 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadData();
+
+    document.querySelector("#filter-tags").addEventListener("change", function () {
+        document.getElementById("tag-filters").classList.toggle("hidden");
+    });
+
+    var tagCheckboxes = document.querySelectorAll("#tag-filters input[name='tag']");
+    for (var i = 0; i < tagCheckboxes.length; i++) {
+        tagCheckboxes[i].addEventListener("change", loadData);
+    }
 
     document.querySelector("#bouton-ignorer").addEventListener("click", function () {
         var current_task_id = parseInt(document.getElementById("id").innerHTML, 10);

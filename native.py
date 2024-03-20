@@ -31,6 +31,21 @@ def send_message(message):
 
 
 def get_tasks():
+    domain =  [
+            ["project_id", "=", upgrade_issue_id],
+            ["state", "in", ["01_in_progress", "02_changes_requested", "03_approved", "04_waiting_normal"]],
+            ["stage_id.name", "=", "Ready for Technical"],
+            ["user_ids", "=", False],
+            ["tag_ids", "not ilike", "Maintained by"],
+            ["tag_ids", "not ilike", "Maintenance of"],
+        ]
+
+    if selected_tags:
+        tag_conditions = ["|"] * (len(selected_tags) - 1)
+        for tag in selected_tags:
+            tag_conditions += [["tag_ids.name", "ilike", tag]]
+        domain += tag_conditions 
+
     tasks = models.execute_kw(
         db,
         uid,
@@ -38,14 +53,7 @@ def get_tasks():
         "project.task",
         "search_read",
         [
-            [
-                ["project_id", "=", upgrade_issue_id],
-                ["state", "in", ["01_in_progress", "02_changes_requested", "03_approved", "04_waiting_normal"]],
-                ["stage_id.name", "=", "Ready for Technical"],
-                ["user_ids", "=", False],
-                ["tag_ids", "not ilike", "Maintained by"],
-                ["tag_ids", "not ilike", "Maintenance of"],
-            ]
+            domain,
         ],
         {"fields": ["id", "name", "tag_ids", "description"], "order": "id"},
     )
@@ -77,6 +85,7 @@ def get_oldest_task(tasks, ignored_ids):
 
 received_message = get_message()
 ignored_ids = received_message.get("ignore_ids", [])
+selected_tags = received_message.get("selected_tags", [])
 
 try:
     common = xmlrpc.client.ServerProxy(f"{url}/xmlrpc/2/common")
