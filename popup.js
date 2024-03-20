@@ -3,6 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.onload = function () {
         var selectedTags = JSON.parse(localStorage.getItem('selectedTags')) || [];
+        var ignoreRollingRelease;
+        if (localStorage.getItem('ignoreRollingRelease') === null) {
+            ignoreRollingRelease = true;
+        } else {
+            ignoreRollingRelease = JSON.parse(localStorage.getItem('ignoreRollingRelease'));
+        }
+        if (ignoreRollingRelease){
+            document.getElementById('rolling release').checked = true;
+        }        
         for (var i = 0; i < selectedTags.length; i++) {
             document.getElementById(selectedTags[i]).checked = true;
         }
@@ -22,10 +31,21 @@ document.addEventListener("DOMContentLoaded", function () {
         return selectedTags;
     }
 
+    function getIgnoreRollingRelease(){
+        var checkbox = document.querySelectorAll("input[name='rolling-release-tag']:checked");
+        if (checkbox.length > 0){
+            return true
+        }
+        return false;
+    }
+
     function loadData() {
         var selectedTags = getSelectedTags();
         localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
-        chrome.runtime.sendMessage({ignore_ids: ignore_ids, selected_tags: selectedTags}, function (response) {
+        var ignoreRollingRelease = getIgnoreRollingRelease();
+        localStorage.setItem('ignoreRollingRelease', JSON.stringify(ignoreRollingRelease));
+
+        chrome.runtime.sendMessage({ignore_ids: ignore_ids, selected_tags: selectedTags, ignoreRollingRelease: ignoreRollingRelease}, function (response) {
             if (response.erreur) {
                 document.getElementById("erreur_div").classList.remove("hidden");
                 document.getElementById("erreur_log").innerHTML = response.erreur;
@@ -56,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     var tagCheckboxes = document.querySelectorAll("#tag-filters input[name='tag']");
+    for (var i = 0; i < tagCheckboxes.length; i++) {
+        tagCheckboxes[i].addEventListener("change", loadData);
+    }
+    var tagCheckboxes = document.querySelectorAll("input[name='rolling-release-tag']");
     for (var i = 0; i < tagCheckboxes.length; i++) {
         tagCheckboxes[i].addEventListener("change", loadData);
     }

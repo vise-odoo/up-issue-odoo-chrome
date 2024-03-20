@@ -46,6 +46,9 @@ def get_tasks():
             tag_conditions += [["tag_ids.name", "ilike", tag]]
         domain += tag_conditions 
 
+    if ignoreRollingRelease:
+        domain += [["tag_ids", 'not ilike', "rolling release"]]
+
     tasks = models.execute_kw(
         db,
         uid,
@@ -86,6 +89,8 @@ def get_oldest_task(tasks, ignored_ids):
 received_message = get_message()
 ignored_ids = received_message.get("ignore_ids", [])
 selected_tags = received_message.get("selected_tags", [])
+ignoreRollingRelease = received_message.get("ignoreRollingRelease", [])
+
 
 try:
     common = xmlrpc.client.ServerProxy(f"{url}/xmlrpc/2/common")
