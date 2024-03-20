@@ -13,17 +13,15 @@
     <div class="container mt-3" style="width: 450px;">
         <h2 class="text-center">Donne-moi une Upgrade Issue !</h2>
         <span id="chargement" class="text-center">Chargement en cours</span>
-        <button id="bouton-ignorer" class="btn btn-primary hidden">Ignorer la tâche</button>
-        <button id="bouton-annuler-ignorer" class="btn btn-secondary hidden">Réafficher les tâches ignorées</button>
         <div>
             <input type="checkbox" id="filter-tags" name="filter-tags">
             <label for="filter-tags">Filtrer sur les étiquettes</label>
         </div>
         <div id="tag-filters" class="hidden">
             <input type="checkbox" id="UP-BlockingReq" name="tag">
-            <label for="UP-BlockingReq">Blocking Request</label>
+            <label for="UP-BlockingReq">Requête Bloquée</label>
             <input type="checkbox" id="UP-Traceback" name="tag">
-            <label for="UP-Traceback">Traceback</label>
+            <label for="UP-Traceback">Pile d'appels</label>
             <input type="checkbox" id="UP-Other" name="tag">
             <label for="UP-Other">Autre</label>
             <input type="checkbox" id="UP-Studio/Views" name="tag">
@@ -33,20 +31,24 @@
             <input type="checkbox" id="rolling release" name="tag">
             <label for="rolling release">Publication continue</label>
         </div>
-        <div id="data" class="hidden card">
+        <button id="bouton-ignorer" class="btn btn-primary hidden">Ignorer la tâche</button>
+        <button id="bouton-annuler-ignorer" class="btn btn-secondary hidden">Réafficher les tâches ignorées</button>
+        <div id="data" class="hidden">
             <p>Il y a <t id="len_tasks">??</t> tâches disponibles <t id="div_len_ignorées" class="hidden">(dont <t
-                        id="len_ignorées"></t> tâches ignorées)</t>
+                id="len_ignorées"></t> tâches ignorées)</t>
             </p>
-            <p>Tâche <a id="url" href=''><strong>#<t id="id">##</t></strong></a> : <t id="name" class="title">???</t>
-            </p>
-            <span><strong>Étiquettes :</strong>
-                <p id="task_tags" />
-            </span>
-            <span>
-                <p><strong>Description :</strong>
-                    <t id="description">
+            <div class="card">
+                <p>Tâche <a id="url" href=''><strong>#<t id="id">##</t></strong></a> : <t id="name" class="title">???</t>
                 </p>
-            </span>
+                <span><strong>Étiquettes :</strong>
+                    <p id="task_tags" />
+                </span>
+                <span>
+                    <p><strong>Description :</strong>
+                        <t id="description">
+                    </p>
+                </span>
+            </div>
         </div>
         <div id="erreur_div" class="hidden">
             <p id="erreur_log" class="error"></p>
