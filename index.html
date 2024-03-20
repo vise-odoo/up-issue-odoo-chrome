@@ -12,7 +12,6 @@
 <body>
     <div class="container mt-3" style="width: 450px;">
         <h2 class="text-center">Donne-moi une Upgrade Issue !</h2>
-        <span id="chargement" class="text-center">Chargement en cours</span>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="filter-tags" name="filter-tags">
             <label class="form-check-label" for="filter-tags">Filtrer sur les étiquettes</label>
@@ -45,6 +44,7 @@
         </div>
         <button id="bouton-ignorer" class="btn btn-primary hidden">Ignorer la tâche</button>
         <button id="bouton-annuler-ignorer" class="btn btn-secondary hidden">Réafficher les tâches ignorées</button>
+        <span id="chargement" class="text-center">Chargement en cours</span>
         <div id="data" class="hidden">
             <p>Il y a <t id="len_tasks">??</t> tâches disponibles <t id="div_len_ignorées" class="hidden">(dont <t
                 id="len_ignorées"></t> tâches ignorées)</t>

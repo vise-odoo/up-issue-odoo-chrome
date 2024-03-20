@@ -72,8 +72,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     document.querySelector("#filter-tags").addEventListener("change", function () {
+        var filterTagsCheckbox = document.getElementById("filter-tags");
+        if (!filterTagsCheckbox.checked) {
+            var tagCheckboxes = document.querySelectorAll("#tag-filters input[type='checkbox']");
+            for (var i = 0; i < tagCheckboxes.length; i++) {
+                tagCheckboxes[i].checked = false;
+            }
+            loadData();
+        }
         document.getElementById("tag-filters").classList.toggle("hidden");
-    });
+    });    
 
     var tagCheckboxes = document.querySelectorAll("#tag-filters input[name='tag']");
     for (var i = 0; i < tagCheckboxes.length; i++) {
