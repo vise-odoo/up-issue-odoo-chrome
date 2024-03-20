@@ -16,10 +16,10 @@ Google Chrome en tant qu'administrateur : `~/etc/opt/chrome/native-messaging-hos
 Sélectionnez l'option "Charger l'extension non empaquetée" et choisissez le répertoire où vous avez extrait les fichiers
 de l'extension.
 
-3 - Dans le fichier `native.py`, remplacer les valeurs
+3 - Dans le fichier `credentials.ini`, remplacer les valeurs
 
 ```python
-username = 'vise@odoo.com'
+username = 'XXXX'
 password = 'XXXX'
 ```
 
