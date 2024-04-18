@@ -17,8 +17,6 @@ config.read('credentials.ini')
 username = config.get('credentials', 'username')
 password = config.get('credentials', 'password')
 
-print(username)
-print(password)
 def get_message():
     raw_length = sys.stdin.buffer.read(4)
     if not raw_length:
@@ -77,8 +75,9 @@ def get_tasks(models, uid):
 
     tag_dict = {tag["id"]: tag["name"] for tag in tags}
     for task in tasks:
-        task["tag_ids"] = [tag_dict[tag_id] if tag_id in tag_dict else "" for tag_id in task["tag_ids"]]
-        task["description"] = task["description"].replace("<br>", "<br/>\n").replace("</p>", "</p>\n\n")
+        unfiltered_tasks = [tag_dict[tag_id] if tag_id in tag_dict else "" for tag_id in task["tag_ids"]]
+        task["tag_ids"] = list(filter(lambda x: (x!=""), unfiltered_tasks))
+        task["description"] = (task["description"] or "No description").replace("<br>", "<br/>\n").replace("</p>", "</p>\n\n")
     return tasks
 
 def get_oldest_task(tasks, ignored_ids):
