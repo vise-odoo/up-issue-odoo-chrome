@@ -6,10 +6,12 @@
 
 Pour installer l'extension, veuillez suivre les étapes suivantes :
 
-1- Placez le fichier com.viseodoo.donnemoiup.json dans le répertoire suivant :
+1- Placez le fichier `com.viseodoo.donnemoiup.json` dans le répertoire suivant :
 
 Si vous utilisez Google Chrome en tant qu'utilisateur : `~/.config/google-chrome/NativeMessagingHosts` Si vous utilisez
 Google Chrome en tant qu'administrateur : `~/etc/opt/chrome/native-messaging-hosts/`
+
+Dans le fichier `com.viseodoo.donnemoiup.json`, s'assurer que le chemin `"path": XXX` est correct
 
 2 - Ouvrez Google Chrome et accédez au Magasin des extensions.
 
