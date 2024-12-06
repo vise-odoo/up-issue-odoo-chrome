@@ -95,11 +95,15 @@ ignoreRollingRelease = received_message.get("ignoreRollingRelease", [])
 try:
     common = xmlrpc.client.ServerProxy(f"{url}/xmlrpc/2/common")
     uid = common.authenticate(db, username, password, {})
+    if not uid:
+        send_message({"error": "La connexion n'a pas pu être établie.\nVérifiez vos identifiants."})
     models = xmlrpc.client.ServerProxy(f"{url}/xmlrpc/2/object")
     tasks = get_tasks(models, uid)
+    if len(tasks) == 0:
+        send_message({"error": "Plus de tâches disponibles !"})
     task = get_oldest_task(tasks, ignored_ids)
     send_message(task)
 except (xmlrpc.client.Fault, xmlrpc.client.ProtocolError) as err:
-    send_message({"error": "XML-RPC error: " + str(err)})
+    send_message({"error": "Erreur XML-RPC : " + str(err)})
 except Exception as err:
-    send_message({"error": "An error occurred: " + str(err)})
+    send_message({"error": "Une erreur est survenue : " + str(err)})

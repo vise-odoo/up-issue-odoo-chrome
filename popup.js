@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         chrome.runtime.sendMessage({ignore_ids: ignore_ids, selected_tags: selectedTags, ignoreRollingRelease: ignoreRollingRelease}, function (response) {
             if (response.erreur) {
                 document.getElementById("error-message").classList.remove("hidden");
-                document.getElementById("error-log").innerHTML = response.erreur;
+                document.getElementById("error-log").innerText = response.erreur;
             } else {
                 document.getElementById("len_tasks").innerHTML = response.len_tasks;
                 document.getElementById("id").innerHTML = response.id;
