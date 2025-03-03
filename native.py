@@ -81,11 +81,11 @@ def get_tasks(models, uid):
     return tasks
 
 def get_oldest_task(tasks, ignored_ids):
-    i = 0
-    while tasks[i]["id"] in ignored_ids:
-        i += 1
-    tasks[i]["len_tasks"] = len(tasks)
-    return tasks[i]
+    filtered_tasks = [task for task in tasks if task["id"] not in ignored_ids]
+    if not filtered_tasks:
+        return None
+    filtered_tasks[0]["len_tasks"] = len(tasks)
+    return filtered_tasks[0]
 
 received_message = get_message()
 ignored_ids = received_message.get("ignore_ids", [])
@@ -102,7 +102,10 @@ try:
     if len(tasks) == 0:
         send_message({"error": "Plus de tâches disponibles !"})
     task = get_oldest_task(tasks, ignored_ids)
-    send_message(task)
+    if task:
+        send_message(task)
+    else:
+        send_message({"error": "Aucune tâche disponible qui ne soit ignorée."})
 except (xmlrpc.client.Fault, xmlrpc.client.ProtocolError) as err:
     send_message({"error": "Erreur XML-RPC : " + str(err)})
 except Exception as err:

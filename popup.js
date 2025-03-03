@@ -88,7 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector("#ignore-task").addEventListener("click", function () {
         var current_task_id = parseInt(document.getElementById("id").innerHTML, 10);
-        ignore_ids.push(current_task_id);
+        if (!ignore_ids.includes(current_task_id)) {
+            ignore_ids.push(current_task_id);
+        }
         localStorage.setItem('ignore_ids', JSON.stringify(ignore_ids));
         loadData();
         document.getElementById("unignore-task").classList.remove("hidden");
